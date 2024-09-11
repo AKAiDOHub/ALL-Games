@@ -1,0 +1,267 @@
+local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
+
+local Window = Fluent:CreateWindow({
+    Title = "Sword-Training-Simulator | AKaidoHub ",
+    SubTitle = "By AK",
+    TabWidth = 80,
+    Size = UDim2.fromOffset(400, 260),
+    Acrylic = false, -- The blur may be detectable, setting this to false disables blur entirely
+    Theme = "Amethyst",
+    MinimizeKey = Enum.KeyCode.K -- Used when theres no MinimizeKeybind
+})
+
+Fluent:ToggleTransparency(true)
+
+-- Cria uma ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+-- Cria um botão
+local button = Instance.new("TextButton")
+button.Size = UDim2.new(0, 100, 0, 30)
+button.Position = UDim2.new(0, 70, 0, 25) -- Ajuste a posição conforme necessário
+button.Text = "Gui On/Off"
+button.TextColor3 = Color3.fromRGB(240, 240, 240)
+button.BackgroundColor3 = Color3.fromRGB(97, 62, 167)
+button.BorderSizePixel = 0
+button.Parent = screenGui
+
+-- Adiciona bordas arredondadas
+local uicorner = Instance.new("UICorner")
+uicorner.CornerRadius = UDim.new(0, 12) -- Ajuste o valor para a curvatura desejada
+uicorner.Parent = button
+
+-- Função para simular o clique da tecla K
+local function simulateKeyPress()
+    local UserInputService = game:GetService("UserInputService")
+    UserInputService.InputBegan:Connect(function(input, gameProcessed)
+        if input.KeyCode == Enum.KeyCode.K then
+        end
+    end)
+    
+    -- Simula o clique da tecla K
+    local VirtualInputManager = game:GetService("VirtualInputManager")
+    VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.K, false, game)
+    VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.K, false, game)
+end
+
+-- Conecta a função ao clique do botão
+button.MouseButton1Click:Connect(simulateKeyPress)
+
+_G.Rebirth = true
+_G.Encantamento = true
+_G.BestEgg = true
+
+function Rebirth()
+    while _G.Rebirth == true do 
+        wait()
+            game:GetService("ReplicatedStorage").Event.HealthAdd:FireServer(0)
+            game:GetService("ReplicatedStorage"):WaitForChild("Event"):WaitForChild("HealthAdd")
+    end
+end
+
+function Encantamento()
+    while _G.Encantamento == true do 
+        wait()
+            game:GetService("ReplicatedStorage").Event.Enchanted:FireServer(0, 9999999999)
+            game:GetService("ReplicatedStorage"):WaitForChild("Event"):WaitForChild("Enchanted")
+    end
+end
+
+function BestEgg()
+    while _G.BestEgg == true do
+        wait()
+            game:GetService("ReplicatedStorage").PEV.CRAFT:FireServer("Soul Warden","Big")
+            game:GetService("ReplicatedStorage"):WaitForChild("PEV"):WaitForChild("CRAFT")
+    end
+end
+
+local Tabs = {
+    C = Window:AddTab({ Title = "Criador", Icon = "user-cog" }),
+    F = Window:AddTab({ Title = "Farm", Icon = "layout-grid" }),
+    E = Window:AddTab({ Title = "Shop", Icon = "shopping-cart" }),
+    M = Window:AddTab({ Title = "Misc", Icon = "scroll" }), 
+    P = Window:AddTab({ Title = "Local Player", Icon = "user" })
+}
+
+    Tabs.C:AddParagraph({
+        Title = "Aviso do Criador",
+        Content = "Olá Seja Bem Vindo Ao AKaidoHub.\n Caso Você Tenha Alguema Ideia de Mapa,\n Para Que eu Faça um Script Mande Mensagem\n No Meu Instagram @_04.sla.\n Este Script Tem Varias Funções Obs: (Nem Todas as Funções Estão Funcionando).\n Bom Jogo. "
+    })
+
+
+local Toggle = Tabs.F:AddToggle("MyToggle", {
+    Title = "Rebirth inf",
+    Description = "Ao ativar essa função seus renascimentos subira infinitamente",
+    Default = false,
+    Callback = function(Value)
+        _G.Rebirth = Value
+        Rebirth()
+    end
+})
+
+local Toggle = Tabs.F:AddToggle("MyToggle", {
+    Title = "Encantamento inf",
+    Description = "Ao ativar essa função suas espadas mesmo sendo a padrão sera infinitamente mais forte",
+    Default = false,
+    Callback = function(Value)
+        _G.Encantamento = Value
+        Encantamento()
+    end
+})
+
+local FarmT = Tabs.F:AddSection("Teleport")
+
+local Dropdown = Tabs.F:AddDropdown("Dropdown", {
+        Title = "Teleport",
+        Values = {"Spawn", "6K", "50M", "100B"},
+        Multi = false,
+        Default = "Spawn",
+        Callback = function(Value)
+            if Value == "Spawn" then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2.28157139, 35.559021, -405.054474, 0.74054265, -0, -0.672009408, 0, 1, -0, 0.672009408, 0, 0.74054265)
+            elseif Value == "6K" then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-136.605789, 34.8271332, 1943.96692, 0.669952154, 0, 0.742404282, 0, 1, 0, -0.742404282, 0, 0.669952154)
+            elseif Value == "50M" then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-11.6407385, 41.2337761, 4565.61133, -0.578509092, -0.222043499, -0.784871876, -0.342021912, 0.939591825, -0.0137187839, 0.740505397, 0.260506958, -0.619506121)
+            elseif Value == "100B" then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-3.32771397, 40.8596954, 7780.62158, -0.578509092, -0.222043499, -0.784871876, -0.342021912, 0.939591825, -0.0137187839, 0.740505397, 0.260506958, -0.619506121)
+            end
+        end
+    })
+    
+local Eggs = Tabs.E:AddSection("Eggs")
+
+    local Toggle = Tabs.E:AddToggle("MyToggle", {
+        Title = "Best Egg Inf",
+        Description = "Ao ativar essa função você tera infinitos dos melhores pets",
+        Default = false,
+        Callback = function(Value)
+            _G.BestEgg = Value
+            BestEgg()
+        end
+    })
+
+    Tabs.E:AddButton({
+        Title = "Equipar 9 Pets",
+        Description = "Quando voce clicar nesse botão você quebrara o limite de 3 pets e vai estar usando 9",
+        Callback = function()
+            Window:Dialog({
+                Title = "Aviso ⚠️",
+                Content = "Essa função esta em [beta] pode acabar não funcionando como desejado",
+                Buttons = {
+                    {
+                        Title = "Confirma",
+                        Callback = function()
+                            game:GetService("ReplicatedStorage"):WaitForChild("PEV"):WaitForChild("EQ"):FireServer("a6ee21c2-f6b9-4bad-8350-9ac8ea290a0c")
+            
+                            game:GetService("ReplicatedStorage"):WaitForChild("PEV"):WaitForChild("EQ"):FireServer("e4de9afb-1d4b-4d31-9fb4-c7569f7150db")
+            
+                            game:GetService("ReplicatedStorage"):WaitForChild("PEV"):WaitForChild("EQ"):FireServer("85df9483-1da5-4ef4-81b9-c39e72cf39fa")
+            
+                            game:GetService("ReplicatedStorage"):WaitForChild("PEV"):WaitForChild("EQ"):FireServer("859f4933-d5aa-40d2-b36b-8c44bfd22f13")
+            
+                            game:GetService("ReplicatedStorage"):WaitForChild("PEV"):WaitForChild("EQ"):FireServer("7bcbe650-fae9-446b-8664-f9848435a748")
+            
+                            game:GetService("ReplicatedStorage"):WaitForChild("PEV"):WaitForChild("EQ"):FireServer("b7079c86-c820-4221-86a1-3bca8643ecde")
+            
+                            game:GetService("ReplicatedStorage"):WaitForChild("PEV"):WaitForChild("EQ"):FireServer("af388524-fcc6-4010-8876-472f0f17e195")
+                        end
+                    },
+                    {
+                        Title = "Cancelar",
+                        Callback = function()
+                            
+                        end
+                    }
+                }
+            })
+            
+        end
+    })
+
+local ShopS = Tabs.E:AddSection("Sword")
+
+    Tabs.E:AddButton({
+        Title = "Comprar Melhor Espada",
+        Description = "Para usar essa função basta você clicar que a espada ja estara no seu inventário",
+        Callback = function()
+            game:GetService("ReplicatedStorage"):WaitForChild("Event"):WaitForChild("BuyPower"):FireServer("Gust",0)
+            game:GetService("ReplicatedStorage"):WaitForChild("Event"):WaitForChild("BuyPower")
+        end
+    })
+    
+    Tabs.E:AddButton({
+        Title = "Melhorar Sua Espada",
+        Description = "Essa função fara que sua espada seja a melhor de todo o servidor",
+        Callback = function()
+            game:GetService("ReplicatedStorage").Event.Enchanted:FireServer(0, 999999)
+            game:GetService("ReplicatedStorage"):WaitForChild("Event"):WaitForChild("Enchanted")
+        end
+    })
+    
+local Misc = Tabs.M:AddSection("Adicionais")
+
+    local Input = Tabs.M:AddInput("Input", {
+        Title = "Adicionar Força Inf",
+        Default = "",
+        Placeholder = "",
+        Numeric = true, -- Only allows numbers
+        Finished = true, -- Only calls callback when you press enter
+        Callback = function(Value)
+            game:GetService("ReplicatedStorage").Event.Train:FireServer(Value)
+            game:GetService("ReplicatedStorage"):WaitForChild("Event"):WaitForChild("Train")
+        end
+    })
+    
+    local Input = Tabs.M:AddInput("Input", {
+        Title = "Adicionar Vitorias Inf         ",
+        Default = "",
+        Placeholder = "",
+        Numeric = true, -- Only allows numbers
+        Finished = true, -- Only calls callback when you press enter
+        Callback = function(Value)
+            game:GetService("ReplicatedStorage").Event.WinGain:FireServer(Value)
+            game:GetService("ReplicatedStorage"):WaitForChild("Event"):WaitForChild("WinGain")
+        end
+    })
+    
+    local Input = Tabs.M:AddInput("Input", {
+        Title = "Adicionar Encantamentos Inf         ",
+        Default = "",
+        Placeholder = "",
+        Numeric = true, -- Only allows numbers
+        Finished = true, -- Only calls callback when you press enter
+        Callback = function(Value)
+            game:GetService("ReplicatedStorage").Event.Enchanted:FireServer(0, Value)
+            game:GetService("ReplicatedStorage"):WaitForChild("Event"):WaitForChild("Enchanted")
+        end
+    })
+    
+local Player = Tabs.P:AddSection("Local Player")
+
+    local Slider = Tabs.P:AddSlider("Slider", {
+        Title = "WalkSpeed",
+        Description = "Modifique sua velocidade",
+        Default = 16,
+        Min = 16,
+        Max = 200,
+        Rounding = 1,
+        Callback = function(Value)
+            game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
+        end
+        
+    })
+    
+    local Slider = Tabs.P:AddSlider("Slider", {
+        Title = "JumpPower",
+        Description = "Modifique a força do seu pulo",
+        Default = 50,
+        Min = 50,
+        Max = 200,
+        Rounding = 1,
+        Callback = function(Value)
+            game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value
+        end
+        
+    })
